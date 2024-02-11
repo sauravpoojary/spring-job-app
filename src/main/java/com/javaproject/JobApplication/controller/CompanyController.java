@@ -23,6 +23,13 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.getAllCompanies());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id){
+        Company company = companyService.getCompanyById(id);
+        return company==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+                : new ResponseEntity<>(company, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company company){
         Company response = companyService.updateCompany(company,id);
@@ -44,7 +51,5 @@ public class CompanyController {
                 : new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
 
     }
-
-
 
 }
